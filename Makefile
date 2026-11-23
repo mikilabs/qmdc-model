@@ -1,8 +1,21 @@
-.PHONY: test lint-test
+.PHONY: test lint-test build bump bump-patch bump-minor bump-major
 
-# Run the data-driven metamodel linter suite.
+# Full test run.
+test:
+	uv run pytest -q
+
+# Run the data-driven metamodel linter suite only.
 lint-test:
 	uv run pytest tests/test_lint.py -q
 
-# Full test run (currently just the linter suite; grows as more suites are added).
-test: lint-test
+# Build sdist + wheel into dist/.
+build:
+	rm -rf dist && uv build
+
+# Bump the version in pyproject.toml and refresh uv.lock.
+# Release = bump -> commit -> push tag v<version> (see README, "Releasing").
+bump: bump-patch
+
+bump-patch bump-minor bump-major: bump-%:
+	python3 scripts/bump_version.py $*
+	uv lock

@@ -105,8 +105,9 @@ def test_adversarial_directory_name_still_makes_exactly_one_workspace(tmp_path: 
     # Ask qmdc — not our code — what the generated file means.
     import json
     import subprocess
+    from qmdc_model.linter import qmdc_executable
     parsed = subprocess.run(
-        ["qmdc", "workspace", "parse", str(ws), "--format", "full"],
+        [qmdc_executable(), "workspace", "parse", str(ws), "--format", "full"],
         capture_output=True, text=True, check=True,
     )
     objects = json.loads(parsed.stdout)["objects"]
