@@ -1,0 +1,44 @@
+name: Release
+
+# Push a tag v<version> (matching pyproject.toml) to publish that version to PyPI.
+# CI runs first; the publish job starts only when every OS is green.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+
+  publish:
+    needs: ci
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      contents: read
+      id-token: write   # PyPI Trusted Publishing
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Tag must match pyproject version
+        shell: bash
+        run: |
+          version=$(uv version --short)
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::tag $GITHUB_REF_NAME does not match pyproject version $version"
+            exit 1
+          fi
+      - name: Build
+        run: uv build
+      - name: Publish to PyPI
+        shell: bash
+        env:
+          UV_PUBLISH_TOKEN: ${{ secrets.UV_PUBLISH_TOKEN }}
+        # A UV_PUBLISH_TOKEN secret is used when set; otherwise Trusted Publishing.
+        # --check-url skips files already on PyPI, so re-running a release is safe.
+        run: |
+          if [ -z "$UV_PUBLISH_TOKEN" ]; then unset UV_PUBLISH_TOKEN; fi
+          uv publish --check-url https://pypi.org/simple/

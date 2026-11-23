@@ -123,3 +123,12 @@ def test_discovered_file_omitted_from_object_index_fails_closed(tmp_path: Path, 
     issues = linter.lint_workspace(ws)
     assert [i.code for i in issues] == ["source_unparsed"]
     assert issues[0].file == "roster.qmd.md"
+
+
+def test_bundled_qmdc_wins_over_path(monkeypatch):
+    """The qmdc installed with this package is used even when PATH has none."""
+    monkeypatch.setenv("PATH", "")
+    exe = Path(linter.qmdc_executable())
+    assert Path(sys.prefix) in exe.parents
+    out = subprocess.run([str(exe), "--version"], capture_output=True, text=True, check=True)
+    assert out.stdout.startswith("qmdc ")

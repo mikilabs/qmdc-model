@@ -73,7 +73,9 @@ from __future__ import annotations
 
 import ast
 import json
+import shutil
 import subprocess
+import sys
 from dataclasses import dataclass, asdict, field as dc_field
 from pathlib import Path
 
@@ -103,9 +105,29 @@ class Issue:
 
 # --------------------------------------------------------------------------- io
 
+def qmdc_executable() -> str:
+    """The `qmdc` that ships with this install, else the one on PATH.
+
+    qmdc is a dependency. Its wheel bundles the native binary behind a Python
+    launcher that costs ~40 ms per call, so the binary is used directly when the
+    installed qmdc exposes it; next comes the console script beside this
+    interpreter (`uv tool install`, `uvx`, a venv), then PATH. The bundled copies
+    win over PATH, so the linter runs the qmdc version this package resolved.
+    """
+    try:
+        from qmdc._launcher import _bundled_binary
+        native = _bundled_binary()
+    except Exception:  # older/newer qmdc without that helper: fall through
+        native = None
+    if native is not None:
+        return str(native)
+    script = shutil.which("qmdc", path=str(Path(sys.executable).parent))
+    return script or shutil.which("qmdc") or "qmdc"
+
+
 def run_qmdc(args):
     try:
-        return subprocess.run(["qmdc"] + args, capture_output=True, text=True)
+        return subprocess.run([qmdc_executable()] + args, capture_output=True, text=True)
     except OSError as e:
         raise RuntimeError(f"could not execute qmdc: {e}") from e
 

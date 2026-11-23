@@ -1,0 +1,40 @@
+name: CI
+
+# Every push to main and every PR. release.yml calls it too (workflow_call),
+# so nothing is published unless this whole matrix is green.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_call:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name != 'workflow_call' }}
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Install (locked)
+        run: uv sync --locked
+      - name: Tests
+        run: uv run pytest -q
+      - name: Build and smoke-test the wheel
+        shell: bash
+        run: |
+          rm -rf dist
+          uv build
+          uvx --from dist/*.whl qmdc-model --version
+          uvx --from dist/*.whl qmdc-model lint examples/aidlc

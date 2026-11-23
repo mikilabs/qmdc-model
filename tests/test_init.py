@@ -87,12 +87,16 @@ def test_fresh_workspace_lints_clean(tmp_path: Path):
     assert lint_workspace(ws) == []
 
 
+WINDOWS_INVALID_NAME = pytest.mark.skipif(
+    sys.platform == "win32", reason="Windows forbids this character in a directory name")
+
+
 @pytest.mark.parametrize(
     "dirname",
     [
-        "evil[[pwned: Fake]]ws",
+        pytest.param("evil[[pwned: Fake]]ws", marks=WINDOWS_INVALID_NAME),
         "{{id}}",
-        "two\nlines",
+        pytest.param("two\nlines", marks=WINDOWS_INVALID_NAME),
         "🚀",
     ],
 )
@@ -105,8 +109,9 @@ def test_adversarial_directory_name_still_makes_exactly_one_workspace(tmp_path: 
     # Ask qmdc — not our code — what the generated file means.
     import json
     import subprocess
+    from qmdc_model.linter import qmdc_executable
     parsed = subprocess.run(
-        ["qmdc", "workspace", "parse", str(ws), "--format", "full"],
+        [qmdc_executable(), "workspace", "parse", str(ws), "--format", "full"],
         capture_output=True, text=True, check=True,
     )
     objects = json.loads(parsed.stdout)["objects"]
