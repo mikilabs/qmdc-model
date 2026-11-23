@@ -192,18 +192,20 @@ The version lives only in `pyproject.toml`; the package reads it from its
 installed metadata. CI (`.github/workflows/ci.yml`) runs the tests and a wheel
 smoke test on Linux, macOS and Windows for every push to `main` and every PR.
 
+One button: **Actions → Release → Run workflow**, pick `patch`, `minor`, `major`, or
+`none` to release the version already in `pyproject.toml`. The workflow runs the
+full CI matrix, bumps `pyproject.toml` and `uv.lock` on `main`, tags `vX.Y.Z`,
+publishes to PyPI and creates a GitHub release with the wheel and sdist. The same
+from a terminal:
+
 ```bash
-make bump-patch        # or bump-minor / bump-major; also refreshes uv.lock
-git commit -am "chore(release): bump qmdc-model to X.Y.Z"
-git push origin main
-git tag vX.Y.Z && git push origin vX.Y.Z
+gh workflow run release.yml -R mikilabs/qmdc-model -f bump=patch
 ```
 
-The tag starts `.github/workflows/release.yml`: it runs the full CI matrix,
-checks that the tag matches the `pyproject.toml` version, builds, and publishes to
-PyPI. It authenticates with PyPI Trusted Publishing (environment `pypi`), or with
-a `UV_PUBLISH_TOKEN` repository secret if one is set. Files already on PyPI are
-skipped, so re-running a release is safe.
+Pushing a tag `vX.Y.Z` that matches `pyproject.toml` releases that commit without a
+bump (`make bump-patch` bumps locally). PyPI authentication is Trusted Publishing
+(environment `pypi`), or a `UV_PUBLISH_TOKEN` repository secret if one is set.
+Files already on PyPI are skipped, so re-running a release is safe.
 
 ## License
 
