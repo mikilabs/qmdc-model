@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "unexpected_field",
+      "object": "w1",
+      "field": "capacity"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "max_count_violation",
+      "object": "d1",
+      "field": "members"
+    }
+  ]
+}

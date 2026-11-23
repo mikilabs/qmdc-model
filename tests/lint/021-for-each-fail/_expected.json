@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "rule_failed",
+      "object": "s1",
+      "detail": "rule_speaker"
+    }
+  ]
+}

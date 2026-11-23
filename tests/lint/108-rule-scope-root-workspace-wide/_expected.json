@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "rule_failed",
+      "global_id": "scope_root:b:thing_b",
+      "detail": "rule_root"
+    }
+  ]
+}

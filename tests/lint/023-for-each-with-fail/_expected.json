@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "warning",
+      "code": "rule_failed",
+      "object": "ov1",
+      "detail": "rule_overlay"
+    }
+  ]
+}

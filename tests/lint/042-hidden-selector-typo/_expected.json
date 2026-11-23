@@ -1,0 +1,11 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "rule_bad_selector",
+      "object": "r1",
+      "field": "for_all",
+      "detail": "r1"
+    }
+  ]
+}

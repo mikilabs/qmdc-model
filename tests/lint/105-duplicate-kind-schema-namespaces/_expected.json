@@ -1,0 +1,18 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "duplicate_kind_schema",
+      "global_id": "dup_ns:a._metamodel:schema_issue",
+      "field": "kind",
+      "detail": "Issue"
+    },
+    {
+      "severity": "error",
+      "code": "duplicate_kind_schema",
+      "global_id": "dup_ns:b._metamodel:schema_issue",
+      "field": "kind",
+      "detail": "Issue"
+    }
+  ]
+}

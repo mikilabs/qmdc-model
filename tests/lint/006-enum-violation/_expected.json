@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "enum_violation",
+      "object": "w1",
+      "field": "level"
+    }
+  ]
+}

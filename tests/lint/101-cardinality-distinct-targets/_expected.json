@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "min_count_violation",
+      "object": "c1",
+      "field": "participants"
+    }
+  ]
+}

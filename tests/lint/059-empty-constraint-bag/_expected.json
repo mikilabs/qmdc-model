@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "schema_empty_constraint",
+      "object": "schema_knob.constraints",
+      "field": "constraints"
+    }
+  ]
+}

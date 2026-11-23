@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "rule_no_selector",
+      "object": "rule_dangling",
+      "detail": "rule_dangling"
+    }
+  ]
+}

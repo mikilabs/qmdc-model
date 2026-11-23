@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "cardinality_bad_shape",
+      "object": "schema_gadget.cardinality",
+      "field": "cardinality"
+    }
+  ]
+}

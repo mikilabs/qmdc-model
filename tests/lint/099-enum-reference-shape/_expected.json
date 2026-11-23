@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "constraint_value_shape",
+      "object": "svc",
+      "field": "tier"
+    }
+  ]
+}

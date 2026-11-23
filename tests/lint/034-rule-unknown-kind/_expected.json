@@ -1,0 +1,11 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "rule_unknown_kind",
+      "object": "rule_ghost",
+      "field": "for_each",
+      "detail": "rule_ghost"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "rule_eval_failed",
+      "object": "svc",
+      "detail": "rule_identity"
+    }
+  ]
+}

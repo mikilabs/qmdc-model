@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "schema_bad_child",
+      "object": "schema_contract",
+      "field": "cardinality"
+    }
+  ]
+}

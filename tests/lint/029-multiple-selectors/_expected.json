@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "rule_selector_conflict",
+      "object": "rule_conflict",
+      "detail": "rule_conflict"
+    }
+  ]
+}

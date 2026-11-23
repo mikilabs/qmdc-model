@@ -1,0 +1,9 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "rule_failed",
+      "detail": "rule_index"
+    }
+  ]
+}

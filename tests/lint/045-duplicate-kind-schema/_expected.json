@@ -1,0 +1,18 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "duplicate_kind_schema",
+      "object": "schema_service_a",
+      "field": "kind",
+      "detail": "Service"
+    },
+    {
+      "severity": "error",
+      "code": "duplicate_kind_schema",
+      "object": "schema_service_b",
+      "field": "kind",
+      "detail": "Service"
+    }
+  ]
+}

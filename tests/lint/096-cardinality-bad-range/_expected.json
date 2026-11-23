@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "cardinality_bad_range",
+      "object": "schema_thing.cardinality.deps",
+      "field": "deps"
+    }
+  ]
+}

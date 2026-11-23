@@ -1,0 +1,11 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "rule_bad_selector",
+      "object": "rule_file",
+      "field": "for_each_file",
+      "detail": "rule_file"
+    }
+  ]
+}

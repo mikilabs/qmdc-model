@@ -1,0 +1,11 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "rule_unknown_field",
+      "object": "rule_typo",
+      "field": "nmae",
+      "detail": "rule_typo"
+    }
+  ]
+}

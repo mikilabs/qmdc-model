@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "schema_bad_placement",
+      "object": "constraints",
+      "detail": "FieldConstraints"
+    }
+  ]
+}

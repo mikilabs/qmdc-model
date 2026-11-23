@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "schema_bad_strict",
+      "object": "schema_book",
+      "field": "strict"
+    }
+  ]
+}

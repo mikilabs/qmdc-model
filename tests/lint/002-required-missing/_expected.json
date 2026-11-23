@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "missing_required",
+      "object": "w1",
+      "field": "capacity"
+    }
+  ]
+}

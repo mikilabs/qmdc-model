@@ -1,0 +1,11 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "rule_bad_selector",
+      "object": "rule_bool",
+      "field": "for_each",
+      "detail": "rule_bool"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "rule_eval_failed",
+      "detail": "rule_bad_overlap"
+    }
+  ]
+}

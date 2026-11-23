@@ -1,0 +1,11 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "rule_eval_failed",
+      "object": "rule_true",
+      "field": "assert",
+      "detail": "rule_true"
+    }
+  ]
+}

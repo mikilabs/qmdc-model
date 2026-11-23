@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "target_kind_violation",
+      "object": "w1",
+      "field": "room"
+    }
+  ]
+}

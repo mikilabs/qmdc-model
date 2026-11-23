@@ -1,0 +1,18 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "rule_bad_severity",
+      "object": "rule_severity",
+      "field": "severity",
+      "detail": "rule_severity"
+    },
+    {
+      "severity": "error",
+      "code": "rule_bad_message",
+      "object": "rule_message",
+      "field": "message",
+      "detail": "rule_message"
+    }
+  ]
+}

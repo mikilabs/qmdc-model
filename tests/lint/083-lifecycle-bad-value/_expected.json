@@ -1,0 +1,16 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "lifecycle_bad_value",
+      "object": "w1",
+      "field": "lifecycle"
+    },
+    {
+      "severity": "error",
+      "code": "missing_required",
+      "object": "w1",
+      "field": "name"
+    }
+  ]
+}

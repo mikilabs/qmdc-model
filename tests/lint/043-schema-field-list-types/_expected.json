@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "schema_field_list",
+      "object": "schema_course",
+      "field": "required"
+    }
+  ]
+}

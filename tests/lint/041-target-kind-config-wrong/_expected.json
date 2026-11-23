@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "schema_bad_target_kind",
+      "object": "schema_widget.constraints",
+      "field": "owner"
+    }
+  ]
+}

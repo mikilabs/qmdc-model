@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "info",
+      "code": "retired_object",
+      "object": "w1",
+      "field": "lifecycle"
+    }
+  ]
+}

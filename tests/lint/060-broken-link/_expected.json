@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "structural",
+      "object": "w1",
+      "detail": "broken_link"
+    }
+  ]
+}

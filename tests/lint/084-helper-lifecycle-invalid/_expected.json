@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "lifecycle_bad_value",
+      "object": "schema_widget.constraints",
+      "field": "lifecycle"
+    }
+  ]
+}

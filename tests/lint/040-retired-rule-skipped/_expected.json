@@ -1,0 +1,11 @@
+{
+  "issues": [
+    {
+      "severity": "info",
+      "code": "retired_rule",
+      "object": "rule_old",
+      "field": "lifecycle",
+      "detail": "rule_old"
+    }
+  ]
+}

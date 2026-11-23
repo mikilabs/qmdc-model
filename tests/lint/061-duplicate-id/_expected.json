@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "structural",
+      "object": "[[#dup]]",
+      "detail": "duplicate_id"
+    }
+  ]
+}

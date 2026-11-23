@@ -1,0 +1,10 @@
+{
+  "issues": [
+    {
+      "severity": "error",
+      "code": "rule_bad_placement",
+      "global_id": "scope_placement:a:rule_a",
+      "detail": "rule_a"
+    }
+  ]
+}
