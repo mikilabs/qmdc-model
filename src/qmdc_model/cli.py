@@ -338,7 +338,19 @@ def cmd_lint(args) -> int:
     return 1 if any(i.severity == "error" for i in issues) else 0
 
 
+def _tolerate_narrow_console() -> None:
+    """Never crash on output: a cp1252 stdout (Windows pipes) cannot encode ✅/🎉.
+
+    Such streams keep their encoding but replace what they cannot show with '?'.
+    """
+    for stream in (sys.stdout, sys.stderr):
+        enc = (getattr(stream, "encoding", None) or "").lower().replace("-", "")
+        if enc != "utf8" and hasattr(stream, "reconfigure"):
+            stream.reconfigure(errors="replace")
+
+
 def main(argv=None) -> int:
+    _tolerate_narrow_console()
     p = argparse.ArgumentParser(prog="qmdc-model", description="Metamodel operator and linter for QMD workspaces")
     p.add_argument("--version", action="version", version=f"qmdc-model {__version__}")
     sub = p.add_subparsers(dest="command", required=True)
