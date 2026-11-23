@@ -1,29 +1,71 @@
+# Releases, one button: Actions -> Release -> Run workflow (pick patch, minor, major,
+# or none to release the version already in pyproject.toml). It runs the full CI
+# matrix, bumps pyproject.toml + uv.lock on main, tags vX.Y.Z, publishes to PyPI and
+# creates a GitHub release. Pushing a tag vX.Y.Z that matches pyproject.toml does the
+# same for that commit, without the bump.
 name: Release
 
-# Push a tag v<version> (matching pyproject.toml) to publish that version to PyPI.
-# CI runs first; the publish job starts only when every OS is green.
 on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: Version bump
+        type: choice
+        options: [patch, minor, major, none]
+        default: patch
   push:
     tags: ["v*"]
 
 permissions:
   contents: read
 
+concurrency:
+  group: release
+  cancel-in-progress: false
+
 jobs:
   ci:
     uses: ./.github/workflows/ci.yml
 
-  publish:
+  release:
     needs: ci
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     environment: pypi
     permissions:
-      contents: read
+      contents: write   # push the bump commit, the tag and the GitHub release
       id-token: write   # PyPI Trusted Publishing
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_dispatch' && 'main' || github.ref }}
       - uses: astral-sh/setup-uv@v6
-      - name: Tag must match pyproject version
+
+      - name: Bump, commit and tag (button)
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        run: |
+          if [ "${{ inputs.bump }}" != none ]; then
+            python3 scripts/bump_version.py "${{ inputs.bump }}"
+            uv lock
+          fi
+          version=$(uv version --short)
+          if git rev-parse -q --verify "refs/tags/v$version" >/dev/null; then
+            echo "::error::tag v$version already exists; pick a bump"
+            exit 1
+          fi
+          git config user.name "qmdc-model release"
+          git config user.email "release@users.noreply.github.com"
+          if ! git diff --quiet; then
+            git commit -am "chore(release): bump qmdc-model to $version"
+          fi
+          git tag "v$version"
+          git push origin HEAD:refs/heads/main "refs/tags/v$version"
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+
+      - name: Tag must match pyproject version (tag push)
+        if: github.event_name == 'push'
         shell: bash
         run: |
           version=$(uv version --short)
@@ -31,8 +73,11 @@ jobs:
             echo "::error::tag $GITHUB_REF_NAME does not match pyproject version $version"
             exit 1
           fi
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+
       - name: Build
         run: uv build
+
       - name: Publish to PyPI
         shell: bash
         env:
@@ -42,3 +87,11 @@ jobs:
         run: |
           if [ -z "$UV_PUBLISH_TOKEN" ]; then unset UV_PUBLISH_TOKEN; fi
           uv publish --check-url https://pypi.org/simple/
+
+      - name: GitHub release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "v$VERSION" dist/* --title "qmdc-model $VERSION" --generate-notes \
+            || gh release upload "v$VERSION" dist/* --clobber
