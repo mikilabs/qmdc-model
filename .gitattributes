@@ -1,0 +1,4 @@
+# Check out text with LF everywhere, Windows included. qmdc 2.0.1 misreads
+# CRLF QMD files (a field under a sub-section gets the section's name as its
+# edge type), so the fixtures must not be converted to CRLF on checkout.
+* text=auto eol=lf

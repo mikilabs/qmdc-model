@@ -14,6 +14,8 @@ import stat
 import sys
 from pathlib import Path
 
+import pytest
+
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 from qmdc_model import __version__  # noqa: E402
 from qmdc_model.cli import MARKER_OPEN, _shipped_vendor, _strip_marker, main  # noqa: E402
@@ -277,6 +279,8 @@ def test_dry_run_reports_plan_even_when_vendor_is_read_only(tmp_path: Path, caps
         vendor.chmod(0o644)
 
 
+@pytest.mark.skipif(sys.platform == "win32",
+                    reason="Windows keeps only the read-only bit, not POSIX mode bits")
 def test_upgrade_preserves_existing_file_mode(tmp_path: Path):
     ws = _init(tmp_path)
     vendor = ws / VENDORED

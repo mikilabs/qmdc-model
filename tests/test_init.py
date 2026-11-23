@@ -87,12 +87,16 @@ def test_fresh_workspace_lints_clean(tmp_path: Path):
     assert lint_workspace(ws) == []
 
 
+WINDOWS_INVALID_NAME = pytest.mark.skipif(
+    sys.platform == "win32", reason="Windows forbids this character in a directory name")
+
+
 @pytest.mark.parametrize(
     "dirname",
     [
-        "evil[[pwned: Fake]]ws",
+        pytest.param("evil[[pwned: Fake]]ws", marks=WINDOWS_INVALID_NAME),
         "{{id}}",
-        "two\nlines",
+        pytest.param("two\nlines", marks=WINDOWS_INVALID_NAME),
         "🚀",
     ],
 )
