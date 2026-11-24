@@ -4,8 +4,8 @@ version = "0.3.0"
 description = "Metamodel operator and linter for QMD workspaces"
 readme = "README.md"
 requires-python = ">=3.12"
-license = "AGPL-3.0-or-later"
-license-files = ["LICENSE"]
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
 authors = [
     { name = "umaxfun", email = "umaxfun@gmail.com" },
 ]
